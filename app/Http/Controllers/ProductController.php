@@ -15,7 +15,7 @@ class ProductController extends Controller
         $product->name=$req->input('name');
         $product->price=$req->input('price');
         $product->description=$req->input('description');
-        $product->file_path=$req->file('file')->store('product');
+        $product->file_path=$req->file('file')->store('products');
         $product->save();
         return $product;
     }
@@ -23,4 +23,16 @@ class ProductController extends Controller
     {
         return Product::all();
     }
+    function delete($id)
+    {
+        $result= Product::where('id',$id)->delete();
+        if($result)
+        {
+            return ["result"=>"product has been delete"];
+        }
+        else{
+            return ["result"=>"Operation failed"];
+        }
+    }
 }
+ 
